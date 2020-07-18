@@ -1,0 +1,29 @@
+{
+  "name": "passport-unsplash",
+  "version": "1.0.0",
+  "description": "Passport Strategy for UnSplash",
+  "main": "src/strategy.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/neerajp99/unsplash-auth.git"
+  },
+  "keywords": [
+    "unsplash",
+    "passport",
+    "authentcation",
+    "oauth"
+  ],
+  "author": "Neeraj Pandey @neerajp99",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/neerajp99/unsplash-auth/issues"
+  },
+  "homepage": "https://github.com/neerajp99/unsplash-auth#readme",
+  "dependencies": {
+    "jsonwebtoken": "^8.5.1",
+    "passport-oauth2": "^1.5.0"
+  }
+}
