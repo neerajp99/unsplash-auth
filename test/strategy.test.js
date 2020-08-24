@@ -33,7 +33,7 @@ describe("Strategy", () => {
     let strategy = new UnsplashStrategy(
       {
         clientID: "ABC123",
-        clientSecret: "secret"
+        clientSecret: "secret123"
       },
       () => {}
     );
@@ -65,7 +65,7 @@ describe("Strategy", () => {
     let strategy = new UnsplashStrategy(
       {
         clientID: "ABC123",
-        clientSecret: "secret"
+        clientSecret: "secret123"
       },
       () => {}
     );
@@ -92,4 +92,43 @@ describe("Strategy", () => {
       );
     });
   });
+
+  // Denying request failure
+  describe("denying requests failure", () => {
+    let strategy = new UnsplashStrategy(
+      {
+        clientID: "ABC123",
+        clientSecret: "secret123"
+      },
+      () => {}
+    );
+
+    let info;
+    // chai-passport-strategy
+    before(done => {
+      chai.passport
+        .use(strategy)
+        .fail(_info => {
+          info = _info;
+          done();
+        })
+        .req(req => {
+          req.query = {};
+          req.query.error = "access_denied";
+          req.query.error_code = "200";
+          req.query.error_description = "Permissions error";
+          req.query.error_reason = "user_denied";
+        })
+        .authenticate();
+    });
+
+    it("should fail with info", () => {
+      expect(info).to.not.be.undefined;
+      expect(info.message).to.equal("Permissions error");
+    });
+  });
+
+
+
+  
 });
