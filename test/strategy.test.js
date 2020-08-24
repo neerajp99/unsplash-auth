@@ -126,9 +126,5 @@ describe("Strategy", () => {
       expect(info).to.not.be.undefined;
       expect(info.message).to.equal("Permissions error");
     });
-  });
-
-
-
-  
+  });  
 });
