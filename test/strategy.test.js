@@ -1,59 +1,95 @@
-let chai = require('chai')
-let UnsplashStrategy = require('../lib/strategy')
-let expect = require('chai').expect;
-chai.use(require('chai-passport-strategy'));
+let chai = require("chai");
+let UnsplashStrategy = require("../lib/strategy");
+let expect = require("chai").expect;
+chai.use(require("chai-passport-strategy"));
 
-describe('Strategy', () => {
-	// Check for correct strategy name
-	describe('constructer method', () => {
-		let strategy = new UnsplashStrategy({
-			clientID: 'ID123',
-			clientSecret: 'secret123'
-		}, () => {})
+describe("Strategy", () => {
+  // Check for correct strategy name
+  describe("constructer method", () => {
+    let strategy = new UnsplashStrategy(
+      {
+        clientID: "ID123",
+        clientSecret: "secret123"
+      },
+      () => {}
+    );
 
-		it('should be named as unsplash', () => {
-			expect(strategy.name).to.equal('unsplash')
-		})
+    it("should be named as unsplash", () => {
+      expect(strategy.name).to.equal("unsplash");
+    });
+  });
 
-	})
+  // Check if contructor defined with undefined options
+  describe("constructor method with undefined options", () => {
+    it("should throw", () => {
+      expect(() => {
+        let strategy = new UnsplashStrategy(undefined, () => {});
+      }).to.throw(Error);
+    });
+  });
 
-	// Check if contructor defined with undefined options
-	describe('constructor method with undefined options', () => {
-		it('should throw', () => {
-			expect(() => {
-			let strategy = new UnsplashStrategy(undefined, () => {})
-			}).to.throw(Error)
-		})
-	})
+  // Incorrect redirect with display parameter
+  describe("correct redirect after authorization with display parameter", () => {
+    let strategy = new UnsplashStrategy(
+      {
+        clientID: "ABC123",
+        clientSecret: "secret"
+      },
+      () => {}
+    );
 
-  // Incorrect redirect 
-  describe('correct redirect after authorization', () => {
-    let strategy = new UnsplashStrategy({
-        clientID: 'ABC123',
-        clientSecret: 'secret'
-    }, () => {})
+    let url;
 
-    let url
-
-    before((done) => {
-      chai.passport.use(strategy)
+    before(done => {
+      chai.passport
+        .use(strategy)
         .redirect(_url => {
-          url = _url 
-          done()
+          url = _url;
+          done();
         })
-        .req(req => {
+        .req(req => {})
+        .authenticate({
+          display: "mobile"
+        });
+    });
 
+    it("should redirect", () => {
+      expect(url).to.equal(
+        "https://unsplash.com/oauth/authorize?response_type=code&client_id=ABC123"
+      );
+    });
+  });
+
+  // Incorrect redirect with reauthorizaton parameter
+  describe("correct redirect after authorization with reathorization parameter", () => {
+    let strategy = new UnsplashStrategy(
+      {
+        clientID: "ABC123",
+        clientSecret: "secret"
+      },
+      () => {}
+    );
+
+    let url;
+
+    before(done => {
+      chai.passport
+        .use(strategy)
+        .redirect(_url => {
+          url = _url;
+          done();
         })
-        .authenticate()
-    })
+        .req(req => {})
+        .authenticate({
+          authType: "reauthenticate",
+          authNonce: "check123"
+        });
+    });
 
-    it('should redirect', () => {
-      expect(url).to.equal('https://unsplash.com/oauth/authorize?response_type=code&client_id=ABC123')
-    })
-
-
-  })
-
-})
-
-
+    it("should redirect to", () => {
+      expect(url).to.equal(
+        "https://unsplash.com/oauth/authorize?response_type=code&client_id=ABC123"
+      );
+    });
+  });
+});
