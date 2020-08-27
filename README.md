@@ -1,6 +1,12 @@
 
 #  Sign in with Unsplash for Passport JS
-[![npm](https://img.shields.io/npm/v/unsplash-passport.svg)](https://www.npmjs.com/package/unsplash-passport)
+
+<a href="https://twitter.com/intent/follow?screen_name=neerajp99"><img src="https://img.shields.io/twitter/follow/neerajp99.svg?label=Follow%20@neerajp99" alt="Follow @neerajp99"></img></a>
+<a href="https://www.npmjs.com/package/unsplash-passport">
+  <img src="https://img.shields.io/npm/v/unsplash-passport.svg"></img>
+</a>
+</p>
+
 Passport Strategy for the sign in with Unsplash, with profile information ✅!
 
 
