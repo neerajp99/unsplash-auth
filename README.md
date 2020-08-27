@@ -28,9 +28,9 @@ Initialize the strategy as follows:
 ```js
 const UnsplasgStrategy = require('unsplash-passport').Strategy;
 let scopes = ['public', 'read_user'];
-passport.use(new UnsplasgStrategy({
+passport.use(new UnsplashStrategy({
     clientID: "",
-    teamID: "",
+    clientSecret: "",
     callbackURL: "",
     scope: scopes
 }, function(accessToken, refreshToken, profile, done) {
@@ -43,7 +43,7 @@ passport.use(new UnsplasgStrategy({
 
 #### Authenticate Requests
 
-Use `passport.authenticate()`, specifying the `'unsplasg'` strategy, to
+Use `passport.authenticate()`, specifying the `'unsplash'` strategy, to
 authenticate requests.
 
 On successful authentication, add the callback route and handle the response.
