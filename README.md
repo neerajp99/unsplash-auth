@@ -50,7 +50,7 @@ passport.use(new UnsplashStrategy({
 
 #### Authenticate Requests
 
-Use `passport.authenticate()`, specifying the `'unsplash'` strategy, to
+Use `passport.authenticate()`, specifying the `unsplash` strategy, to
 authenticate requests.
 
 On successful authentication, add the callback route and handle the response.
@@ -62,7 +62,7 @@ application:
 app.get('/auth/unsplash', passport.authenticate('unsplash'));
 
 app.get('/auth/unsplash/callback',
-  passport.authenticate('facebook', { failureRedirect: '/login' }),
+  passport.authenticate(unsplash', { failureRedirect: '/login' }),
   function(req, res) {
     // Successful authentication, redirect home.
     res.redirect('/redirectHome');
