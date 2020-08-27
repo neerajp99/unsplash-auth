@@ -62,7 +62,7 @@ application:
 app.get('/auth/unsplash', passport.authenticate('unsplash'));
 
 app.get('/auth/unsplash/callback',
-  passport.authenticate(unsplash', { failureRedirect: '/login' }),
+  passport.authenticate('unsplash', { failureRedirect: '/login' }),
   function(req, res) {
     // Successful authentication, redirect home.
     res.redirect('/redirectHome');
